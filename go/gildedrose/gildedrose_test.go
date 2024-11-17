@@ -7,9 +7,9 @@ import (
 )
 
 func TestUpdateQuality(t *testing.T) {
-	var items = []*gildedrose.Item{
+	var items = []gildedrose.Item{
 		{"Sulfuras, Hand of Ragnaros", 0, 80},
-		{"Normal Item", 2, 10},
+		{"Normal Item", 2, 3},
 		{"Aged Brie", 2, 48},
 		{"Conjured", 1, 3},
 		{"Backstage passes to a TAFKAL80ETC concert", 12, 25},
@@ -18,7 +18,7 @@ func TestUpdateQuality(t *testing.T) {
 
 	gildedrose.UpdateQuality(items)
 	assetQualitySellIn(t, items[0], 80, 0)
-	assetQualitySellIn(t, items[1], 9, 1)
+	assetQualitySellIn(t, items[1], 2, 1)
 	assetQualitySellIn(t, items[2], 49, 1)
 	assetQualitySellIn(t, items[4], 26, 11)
 	assetQualitySellIn(t, items[5], 11, 1)
@@ -26,7 +26,7 @@ func TestUpdateQuality(t *testing.T) {
 
 	gildedrose.UpdateQuality(items)
 	assetQualitySellIn(t, items[0], 80, 0)
-	assetQualitySellIn(t, items[1], 8, 0)
+	assetQualitySellIn(t, items[1], 1, 0)
 	assetQualitySellIn(t, items[2], 50, 0)
 	assetQualitySellIn(t, items[4], 27, 10)
 	assetQualitySellIn(t, items[5], 12, 0)
@@ -34,7 +34,7 @@ func TestUpdateQuality(t *testing.T) {
 
 	gildedrose.UpdateQuality(items)
 	assetQualitySellIn(t, items[0], 80, 0)
-	assetQualitySellIn(t, items[1], 6, -1)
+	assetQualitySellIn(t, items[1], 0, -1)
 	assetQualitySellIn(t, items[2], 50, -1)
 	assetQualitySellIn(t, items[4], 29, 9)
 	assetQualitySellIn(t, items[5], 14, -1)
@@ -42,6 +42,7 @@ func TestUpdateQuality(t *testing.T) {
 
 	gildedrose.UpdateQuality(items) // day 4
 	assetQualitySellIn(t, items[0], 80, 0)
+	assetQualitySellIn(t, items[1], 0, -2)
 	assetQualitySellIn(t, items[4], 31, 8)
 
 	gildedrose.UpdateQuality(items) // day 5
@@ -75,7 +76,7 @@ func TestUpdateQuality(t *testing.T) {
 	assetQualitySellIn(t, items[4], 0, -1)
 }
 
-func assetQualitySellIn(t *testing.T, item *gildedrose.Item, expectedQuality, expectedSellIn int) {
+func assetQualitySellIn(t *testing.T, item gildedrose.Item, expectedQuality, expectedSellIn int) {
 	if item.Quality != expectedQuality {
 		t.Errorf("want %s quality = %v but got %v", item.Name, expectedQuality, item.Quality)
 	}
