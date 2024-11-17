@@ -11,7 +11,7 @@ func TestUpdateQuality(t *testing.T) {
 		{"Sulfuras, Hand of Ragnaros", 0, 80},
 		{"Normal Item", 2, 3},
 		{"Aged Brie", 2, 48},
-		{"Conjured", 1, 3},
+		{"Conjured", 3, 5},
 		{"Backstage passes to a TAFKAL80ETC concert", 12, 25},
 		{"Aged Brie", 2, 10},
 	}
@@ -20,29 +20,30 @@ func TestUpdateQuality(t *testing.T) {
 	assetQualitySellIn(t, items[0], 80, 0)
 	assetQualitySellIn(t, items[1], 2, 1)
 	assetQualitySellIn(t, items[2], 49, 1)
+	assetQualitySellIn(t, items[3], 3, 2)
 	assetQualitySellIn(t, items[4], 26, 11)
 	assetQualitySellIn(t, items[5], 11, 1)
-	// assetQualitySellIn(t, items[3], 2, 0) TODO: new requirement
 
 	gildedrose.UpdateQuality(items)
 	assetQualitySellIn(t, items[0], 80, 0)
 	assetQualitySellIn(t, items[1], 1, 0)
 	assetQualitySellIn(t, items[2], 50, 0)
+	assetQualitySellIn(t, items[3], 1, 1)
 	assetQualitySellIn(t, items[4], 27, 10)
 	assetQualitySellIn(t, items[5], 12, 0)
-	// assetQualitySellIn(t, items[3], 0, -1) TODO: new requirement
 
 	gildedrose.UpdateQuality(items)
 	assetQualitySellIn(t, items[0], 80, 0)
 	assetQualitySellIn(t, items[1], 0, -1)
 	assetQualitySellIn(t, items[2], 50, -1)
+	assetQualitySellIn(t, items[3], 0, 0)
 	assetQualitySellIn(t, items[4], 29, 9)
 	assetQualitySellIn(t, items[5], 14, -1)
-	// assetQualitySellIn(t, items[3], 0, -2) TODO: new requirement
 
 	gildedrose.UpdateQuality(items) // day 4
 	assetQualitySellIn(t, items[0], 80, 0)
 	assetQualitySellIn(t, items[1], 0, -2)
+	assetQualitySellIn(t, items[3], 0, -1)
 	assetQualitySellIn(t, items[4], 31, 8)
 
 	gildedrose.UpdateQuality(items) // day 5

@@ -4,6 +4,7 @@ const (
 	backStage = "Backstage passes to a TAFKAL80ETC concert"
 	ageBrie   = "Aged Brie"
 	sulfuras  = "Sulfuras, Hand of Ragnaros"
+	conjured  = "Conjured"
 )
 
 type Item struct {
@@ -41,27 +42,25 @@ func UpdateQuality(items []Item) {
 			if items[i].SellIn < 10 {
 				addingQuality += 1
 			}
-
 			if items[i].SellIn < 5 {
 				addingQuality += 1
 			}
 
 		} else if items[i].Name == ageBrie {
-
 			if items[i].SellIn < 0 {
 				addingQuality += 1
 			}
 
+		} else if items[i].Name == conjured {
+			addingQuality = -2
+
 		} else {
 			addingQuality = -1
-
 			if items[i].SellIn < 0 {
 				addingQuality -= 1
 			}
 		}
 
 		items[i].addQuality(addingQuality)
-
 	}
-
 }
