@@ -5,6 +5,21 @@ type Item struct {
 	SellIn, Quality int
 }
 
+func (i *Item) summarizeQuality(quality int) {
+	if i.Quality == 0 || i.Quality == 50 {
+		return
+	}
+
+	i.Quality += quality
+	if i.Quality > 50 {
+		i.Quality = 50
+	}
+
+	if i.Quality < 0 {
+		i.Quality = 0
+	}
+}
+
 const (
 	backStage = "Backstage passes to a TAFKAL80ETC concert"
 	ageBrie   = "Aged Brie"
@@ -18,29 +33,20 @@ func UpdateQuality(items []*Item) {
 			continue
 		}
 
-		if items[i].Name != ageBrie && items[i].Name != backStage {
-			if items[i].Quality > 0 {
-				items[i].Quality = items[i].Quality - 1
+		if items[i].Name == backStage {
+			addingQuality := 1
+			if items[i].SellIn < 11 {
+				addingQuality += 1
 			}
+
+			if items[i].SellIn < 6 {
+				addingQuality += 1
+			}
+			items[i].summarizeQuality(addingQuality)
+		} else if items[i].Name == ageBrie {
+			items[i].summarizeQuality(1)
 		} else {
-			if items[i].Quality < 50 {
-				addingQuality := 1
-
-				if items[i].Name == backStage {
-					if items[i].SellIn < 11 {
-						addingQuality += 1
-					}
-
-					if items[i].SellIn < 6 {
-						addingQuality += 1
-					}
-				}
-
-				items[i].Quality += addingQuality
-				if items[i].Quality > 50 {
-					items[i].Quality = 50
-				}
-			}
+			items[i].summarizeQuality(-1)
 		}
 
 		items[i].SellIn = items[i].SellIn - 1
@@ -51,11 +57,10 @@ func UpdateQuality(items []*Item) {
 				continue
 			}
 
-			if items[i].Name != ageBrie && items[i].Quality > 0 {
-				items[i].Quality = items[i].Quality - 1
-
-			} else if items[i].Quality < 50 {
-				items[i].Quality = items[i].Quality + 1
+			if items[i].Name == ageBrie {
+				items[i].summarizeQuality(1)
+			} else {
+				items[i].summarizeQuality(-1)
 			}
 
 		}
