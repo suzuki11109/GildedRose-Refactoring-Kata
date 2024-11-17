@@ -6,7 +6,7 @@ import (
 	"github.com/emilybache/gildedrose-refactoring-kata/gildedrose"
 )
 
-func TestUpdateQuality_Sulfuras(t *testing.T) {
+func TestUpdateQuality(t *testing.T) {
 	var items = []*gildedrose.Item{
 		{"Sulfuras, Hand of Ragnaros", 0, 80},
 		{"Normal Item", 2, 10},
@@ -25,6 +25,7 @@ func TestUpdateQuality_Sulfuras(t *testing.T) {
 	// assetQualitySellIn(t, items[3], 2, 0) TODO: new requirement
 
 	gildedrose.UpdateQuality(items)
+	assetQualitySellIn(t, items[0], 80, 0)
 	assetQualitySellIn(t, items[1], 8, 0)
 	assetQualitySellIn(t, items[2], 50, 0)
 	assetQualitySellIn(t, items[4], 27, 10)
@@ -32,6 +33,7 @@ func TestUpdateQuality_Sulfuras(t *testing.T) {
 	// assetQualitySellIn(t, items[3], 0, -1) TODO: new requirement
 
 	gildedrose.UpdateQuality(items)
+	assetQualitySellIn(t, items[0], 80, 0)
 	assetQualitySellIn(t, items[1], 6, -1)
 	assetQualitySellIn(t, items[2], 50, -1)
 	assetQualitySellIn(t, items[4], 29, 9)
@@ -39,15 +41,19 @@ func TestUpdateQuality_Sulfuras(t *testing.T) {
 	// assetQualitySellIn(t, items[3], 0, -2) TODO: new requirement
 
 	gildedrose.UpdateQuality(items) // day 4
+	assetQualitySellIn(t, items[0], 80, 0)
 	assetQualitySellIn(t, items[4], 31, 8)
 
 	gildedrose.UpdateQuality(items) // day 5
+	assetQualitySellIn(t, items[0], 80, 0)
 	assetQualitySellIn(t, items[4], 33, 7)
 
 	gildedrose.UpdateQuality(items) // day 6
+	assetQualitySellIn(t, items[0], 80, 0)
 	assetQualitySellIn(t, items[4], 35, 6)
 
 	gildedrose.UpdateQuality(items)
+	assetQualitySellIn(t, items[0], 80, 0)
 	assetQualitySellIn(t, items[4], 37, 5)
 
 	gildedrose.UpdateQuality(items)
